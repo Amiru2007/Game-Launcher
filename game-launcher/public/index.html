@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+  <title>Game Launcher</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <img id="overlay-img" src="images/temp-bg.jpg" alt="bg">
+  <div class="bg-overlay"></div>
+  <div class="left-sidebar">
+    <div class="nav-upper-container">
+      <div class="logo">
+        <img src="default-icon.png" alt="">
+      </div>
+      <div class="main-nav-links">
+        <a href="#" class="link">
+          <span>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z" fill="#ffffff"/></svg>
+          </span>
+        </a>
+        <a href="#" class="link">
+          <span>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13h3.5Zm10 0A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13h3.5Zm-10-10A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3h3.5Zm10 0A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3h3.5Z" fill="#ffffff"/></svg>
+          </span>
+        </a>
+        <!-- <a href="#" class="link">
+          <span>
+            
+          </span>
+        </a> -->
+      </div>
+    </div>
+    <div class="bottom-nav-link">
+      <a href="#" class="link">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="#ffffff"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="main-view">
+    <div id="header">
+      <h1>Game Launcher</h1>
+    </div>
+  
+    <div id="game-container"></div> <!-- This is where game cards will be inserted -->
+  
+    <button id="add-game-btn">Add Game</button>
+  
+    <!-- Modal for Adding a Game -->
+    
+    <div id="addGameModal" class="modal">
+      <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <h2>Add Game</h2>
+        <form id="add-game-form">
+          <label for="game-name">Game Name:</label>
+          <input type="text" id="game-name" required>
+          <label for="game-path">Executable Path:</label>
+          <input type="text" id="game-path" required>
+          <button id="browse-btn" type="button">Browse</button>
+          <label for="icon-url">Icon URL:</label>
+          <input type="text" id="icon-url">
+          <label for="cover-url">Cover URL:</label>
+          <input type="text" id="cover-url">
+          <label for="background-url">Background URL:</label>
+          <input type="text" id="background-url">
+          <button type="submit">Add Game</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="../src/renderer.js"></script>
+</body>
+</html>
