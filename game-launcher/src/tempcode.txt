@@ -1,0 +1,24 @@
+
+
+      const infoLastPlayedTitle = document.createElement('p');
+      infoLastPlayedTitle.classList.add('info-title');
+      infoLastPlayed.textContent = `Last Played: ${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
+      
+      const infoLastPlayed = document.createElement('p');
+      infoLastPlayed.classList.add('info-detail-tag');
+      infoPlayTime.textContent = `Total Playtime: ${formatPlaytime(game.totalPlaytime)}`;
+      
+      const infoPlayTimeTItle = document.createElement('p');
+      infoPlayTimeTItle.classList.add('info-title');
+      infoLastPlayed.textContent = `Last Played: ${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
+      
+      const infoPlayTime = document.createElement('p');
+      infoPlayTime.classList.add('info-detail-tag');
+      infoPlayTime.textContent = `Total Playtime: ${formatPlaytime(game.totalPlaytime)}`;
+      
+      gameCardOverlay.appendChild(infoLastPlayedTitle);
+      gameCardOverlay.appendChild(infoLastPlayed);
+      gameCardOverlay.appendChild(infoPlayTimeTItle);
+      gameCardOverlay.appendChild(infoPlayTime);
+
+      gameContainer.appendChild(gameCard);

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
-  <title>Game Launcher</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com;">
+    <title>Game Launcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
+  </head>  
 <body>
   <img id="overlay-img" src="images/temp-bg.jpg" alt="bg">
   <div class="bg-overlay"></div>
@@ -18,12 +19,12 @@
       <div class="main-nav-links">
         <a href="#" class="link">
           <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z" fill="#ffffff"/></svg>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z" fill="#9a9c9d"/></svg>
           </span>
         </a>
         <a href="#" class="link">
           <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13h3.5Zm10 0A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13h3.5Zm-10-10A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3h3.5Zm10 0A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3h3.5Z" fill="#ffffff"/></svg>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13h3.5Zm10 0A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13h3.5Zm-10-10A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3h3.5Zm10 0A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3h3.5Z" fill="#9a9c9d"/></svg>
           </span>
         </a>
         <!-- <a href="#" class="link">
@@ -35,38 +36,111 @@
     </div>
     <div class="bottom-nav-link">
       <a href="#" class="link">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="#ffffff"/></svg>
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="#9a9c9d"/></svg>
       </a>
     </div>
   </div>
   <div class="main-view">
-    <div id="header">
-      <h1>Game Launcher</h1>
+    <div class="horizontal-nav">
+      <div class="right-nav-links">
+        <div class="stared-games">
+          <div class="star badge">
+            <?xml version="1.0" encoding="UTF-8"?><svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#9a9c9d" stroke-width="1.5"><path d="M8.58737 8.23597L11.1849 3.00376C11.5183 2.33208 12.4817 2.33208 12.8151 3.00376L15.4126 8.23597L21.2215 9.08017C21.9668 9.18848 22.2638 10.0994 21.7243 10.6219L17.5217 14.6918L18.5135 20.4414C18.6409 21.1798 17.8614 21.7428 17.1945 21.3941L12 18.678L6.80547 21.3941C6.1386 21.7428 5.35909 21.1798 5.48645 20.4414L6.47825 14.6918L2.27575 10.6219C1.73617 10.0994 2.03322 9.18848 2.77852 9.08017L8.58737 8.23597Z" fill="#9a9c9d" stroke="#9a9c9d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <div class="breaker"></div>
+          <div class="game-list">
+            <div class="game link">
+              <img src="https://nfsmods.xyz/uploads/thumbnails/Tonny-45344e2a2ca153a6d289ca890f161ad3.jpg" alt="gaer">
+            </div>
+            <div class="game link">
+              <img src="https://preview.redd.it/w0lmb8i7odo51.png?width=640&crop=smart&auto=webp&s=82a5726a72b8f635114261681e066f0db26d5751" alt="athath">
+            </div>
+            <div class="game link">
+              <img src="https://media.nichegamer.com/wp-content/uploads/2023/11/Call-of-Duty-MW3-Cover-art.png" alt="hshtra">
+            </div>
+          </div>
+          <div class="open badge">
+            <?xml version="1.0" encoding="UTF-8"?><svg width="14px" height="14px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#9a9c9d"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="#9a9c9d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="profile">
+          <div class="profile-icon">
+            <img src="images/temp-bg.jpg" alt="">
+          </div>
+          <p class="user-title">
+            AmirUpek W
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="main-page">
+      <div class="sub-header">
+        <p>Games</p>
+        <button id="add-game-btn">Add Game</button>
+      </div>
+      <div id="game-container">
+        
+      </div>
     </div>
   
-    <div id="game-container"></div> <!-- This is where game cards will be inserted -->
-  
-    <button id="add-game-btn">Add Game</button>
-  
     <!-- Modal for Adding a Game -->
-    
+    <!-- Edit Game Modal -->
+    <div id="editGameModal" class="modal">
+      <div class="modal-content">
+        <span id="close-edit-modal" class="close">&times;</span>
+        <form id="edit-game-form">
+          <input type="hidden" id="edit-game-id" />
+          <label for="edit-game-name">Name:</label>
+          <input type="text" id="edit-game-name" required />
+          <label for="edit-game-path">Path:</label>
+          <input type="text" id="edit-game-path" required />
+          <label for="edit-icon-url">Icon URL:</label>
+          <input type="text" id="edit-icon-url" />
+          <label for="edit-cover-url">Cover URL:</label>
+          <input type="text" id="edit-cover-url" />
+          <label for="edit-background-url">Background URL:</label>
+          <input type="text" id="edit-background-url" />
+          <button type="submit">Update Game</button>
+        </form>
+      </div>
+    </div>
+
+
     <div id="addGameModal" class="modal">
       <div class="modal-content">
-        <span id="close-modal" class="close">&times;</span>
+        <span id="close-modal" class="close">
+          <?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff"><path d="M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
         <h2>Add Game</h2>
         <form id="add-game-form">
-          <label for="game-name">Game Name:</label>
-          <input type="text" id="game-name" required>
-          <label for="game-path">Executable Path:</label>
-          <input type="text" id="game-path" required>
-          <button id="browse-btn" type="button">Browse</button>
-          <label for="icon-url">Icon URL:</label>
-          <input type="text" id="icon-url">
-          <label for="cover-url">Cover URL:</label>
-          <input type="text" id="cover-url">
-          <label for="background-url">Background URL:</label>
-          <input type="text" id="background-url">
-          <button type="submit">Add Game</button>
+          <div class="input-block">
+            <label for="game-name">Game Name:</label>
+            <input type="text" id="game-name" required>
+          </div>
+          <div class="input-block">
+            <label for="game-path">Executable Path:</label>
+            <div class="input-bar">
+              <input type="text" id="game-path" required>
+              <button id="browse-btn" type="button">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.25 14.5a3.75 3.75 0 0 1 .202 7.495l-.199.005-1 .005a.75.75 0 0 1-.108-1.493l.102-.007 1.003-.005a2.25 2.25 0 0 0 .154-4.495L18.25 16h-1a.75.75 0 0 1-.102-1.493l.102-.007h1Zm-4.5 0a.75.75 0 0 1 .102 1.493L13.75 16h-1a2.25 2.25 0 0 0-.154 4.495l.154.005h1a.75.75 0 0 1 .102 1.493L13.75 22h-1a3.75 3.75 0 0 1-.2-7.495l.2-.005h1ZM8.207 4c.46 0 .908.141 1.284.402l.156.12L12.022 6.5h7.728a2.25 2.25 0 0 1 2.229 1.938l.016.158.005.154v6.585a4.77 4.77 0 0 0-1.5-1.27V8.75a.75.75 0 0 0-.648-.743L19.75 8h-7.729L9.647 9.979a2.25 2.25 0 0 1-1.244.512l-.196.009-4.707-.001v7.251c0 .38.282.694.648.743l.102.007h3.757c.027.528.14 1.033.326 1.501L4.25 20a2.25 2.25 0 0 1-2.245-2.096L2 17.75V6.25a2.25 2.25 0 0 1 2.096-2.245L4.25 4h3.957ZM18.25 17.5a.75.75 0 0 1 .102 1.493L18.25 19h-5.5a.75.75 0 0 1-.102-1.493l.102-.007h5.5ZM8.207 5.5H4.25a.75.75 0 0 0-.743.648L3.5 6.25v2.749L8.207 9a.75.75 0 0 0 .395-.113l.085-.06 1.891-1.578-1.89-1.575a.75.75 0 0 0-.377-.167L8.207 5.5Z" fill="#aaaaaa"/></svg>
+              </button>
+          </div>
+          </div>
+          <div class="input-block">
+            <label for="icon-url">Icon URL:</label>
+            <input type="text" id="icon-url">
+          </div>
+          <div class="input-block">
+            <label for="cover-url">Cover URL:</label>
+            <input type="text" id="cover-url">
+          </div>
+          <div class="input-block">
+            <label for="background-url">Background URL:</label>
+            <input type="text" id="background-url">
+          </div>
+          <div class="input-block submit-button-block">
+            <button type="submit">Add Game</button>
+          </div>
         </form>
       </div>
     </div>

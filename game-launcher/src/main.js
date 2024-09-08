@@ -13,7 +13,8 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false
     }
   });
 
@@ -61,15 +62,31 @@ ipcMain.handle('add-game', async (event, game) => {
 
 ipcMain.handle('update-game', async (event, game) => {
   return new Promise((resolve, reject) => {
-    const { id, name, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning } = game;
-    db.run('UPDATE games SET name = ?, path = ?, iconUrl = ?, coverUrl = ?, backgroundUrl = ?, lastOpened = ?, totalPlaytime = ?, isRunning = ? WHERE id = ?', 
-      [name, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning, id],
-      function (err) {
-        if (err) {
-          reject(err);
+    const { id, name, path, iconUrl, coverUrl, backgroundUrl } = game;
+    db.get('SELECT * FROM games WHERE id = ?', [id], (err, existingGame) => {
+      if (err) {
+        return reject(err);
+      }
+
+      if (!existingGame) {
+        return reject(new Error('Game not found.'));
+      }
+
+      // Retain existing values for lastOpened and totalPlaytime
+      const lastOpened = game.lastOpened || existingGame.lastOpened;
+      const totalPlaytime = game.totalPlaytime || existingGame.totalPlaytime;
+
+      db.run(
+        'UPDATE games SET name = ?, path = ?, iconUrl = ?, coverUrl = ?, backgroundUrl = ?, lastOpened = ?, totalPlaytime = ? WHERE id = ?',
+        [name, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, id],
+        function (err) {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
         }
-        resolve();
-      });
+      );
+    });
   });
 });
 

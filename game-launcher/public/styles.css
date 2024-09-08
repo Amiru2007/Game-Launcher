@@ -1,10 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 :root {
   --bg: #111111;
+  --nav-bg: #080a0c;
+  --sub-text: #9a9c9d;
+  --text-subdued: #696969;
+  --text-main: #ffffff;
+  --menu-bg: #171717;
+  --text-alt: #111111;
+  --dark-border: #232323;
+  --text-main-dimmed: #eeeeee;
+}
+
+.sub-header p {
+    font-size: 22px;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.main-page {
+    /* margin-top: -19px; */
+    padding: 110px 30px 30px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI",
+    "Microsoft Ya Hei", sans-serif !important;
+}
+
+.game-card-buttons-overlay {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+}
+
+.input-block.submit-button-block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input-block button[type*='submit'] {
+    /* background: red; */
+    width: -webkit-fill-available;
+    height: 28px;
+    border: 1px solid var(--dark-border);
+    border-radius: 8px;
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.input-block label {
+    font-weight: 500;
+    font-size: 15px;
+    width: 100%;
+    padding-bottom: 5px;
+    /* color: var(--text-main-dimmed); */
+}
+
+.input-block input {
+    /* flex: 1; */
+    width: -webkit-fill-available;
+    /* display: flex; */
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid var(--dark-border);
+    background: var(--nav-bg);
+    color: var(--text-main-dimmed);
+    outline: 0;
+}
+
+.input-block input:focus {
+    outline: 1px solid var(--dark-border);
+    border: 0;
+}
+
+.input-block input:focus {
+    border: 1px solid #000;
+}
+
+form#add-game-form {
+    width: 100%;
+    /* height: 300px; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 40px;
+    grid-row-gap: 25px;
+    color: var(--text-main-dimmed);
+    font-weight: 400 !important;
+}
+
+.modal-content h2 {
+    font-size: 26px;
+    padding: 0 0 30px 0;
+    font-weight: 700;
+}
+
+p.info-block {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+p.info-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.sub-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* General styles */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -31,10 +153,10 @@ body {
 .left-sidebar {
   position: fixed;
   width: 50px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 60px);
   top: 0;
   left: 0;
-  padding: 40px 30px;
+  padding: 30px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,7 +169,7 @@ body {
 }
 
 .main-nav-links {
-  background: #080a0c;
+  background: var(--nav-bg);
   padding: 15px 0;
   margin: 50px 0;
   display: flex;
@@ -68,7 +190,7 @@ body {
 }
 
 .bottom-nav-link {
-  background: #080a0c;
+  background: var(--nav-bg);
   /* padding: 10px 10px; */
   /* margin: 10px 0; */
   width: 50px;
@@ -83,12 +205,59 @@ body {
 .main-view {
   width: calc(100vw - 110px);
   margin-left: 110px;
-  background: #02ff0c9e;
+  /* background: #02ff0c9e; */
   z-index: 3;
   position: absolute;
   top: 0;
   right: 0;
   height: 100vh;
+  /* overflow: scroll; */
+}
+
+.horizontal-nav {
+  width: calc(100% - 170px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  /* background-color: white; */
+  height: 50px;
+  padding: 30px;
+  z-index: 9;
+}
+
+.game-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* padding: 0 5px; */
+  /* background: var(--nav-bg); */
+  /* border-radius: 9999px; */
+}
+
+.game.link img {
+  width: 36px;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 8px;
+  border-radius: 9999px;
+}
+
+div#game-container {
+  /* background: red; */
+  /* margin-top: 110px; */
+  /* padding: 110px 15px 15px 15px; */
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+  /* overflow-x: auto; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 340px);
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
 }
 
 /* Header styles */
@@ -106,13 +275,15 @@ header h1 {
 }
 
 #add-game-btn {
-  background-color: #4CAF50;
-  color: white;
+  background-color: transparent;
+  color: var(--text-main);
   border: none;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   cursor: pointer;
-  position: absolute;
+  /* position: absolute; */
   z-index: 3;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 /* Grid layout */
@@ -146,16 +317,94 @@ header h1 {
   cursor: pointer;
 }
 
+.input-block {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.input-block .input-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: -webkit-fill-available;
+}
 
 /* Game Card Background */
 .game-card {
   background-size: cover;
   background-position: center;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 10px;
   margin-bottom: 20px;
   position: relative;
   color: #fff;
+  height: 300px;
+  max-width: 100%;
+  /* min-width: 100%; */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.game-card-cover {
+    flex: 1;
+    height: 270px;
+    background: white;
+    padding: 20px;
+    width: 193px;
+    max-width: 180px;
+    margin: 15px;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+}
+
+.game-overlay {
+    position: relative;
+    height: 300px;
+    /* width: 210px; */
+    /* max-width: 210px; */
+    /* min-width: 210px; */
+    padding: 20px;
+    flex: 1;
+    /* top: 0; */
+    /* left: 0; */
+    /* background: linear-gradient(0deg, #00000099, transparent); */
+    /* border-radius: 20px; */
+    /* top: 340px; */
+    /* visibility: hidden; */
+    /* transition: top 0.5s ease, visibility 0.5s ease; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.launch-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background: var(--text-main);
+    border-radius: 9999px;
+    color: var(--bg);
+    padding: 10px;
+}
+
+span.launch-button-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    mask-image: url(https://raw.githubusercontent.com/Amiru2007/icons-i-nedd-in-my-project-personal/main/ic_fluent_play_24_filled.svg) !important;
+    background: var(--bg);
+}
+
+.game-overlay h3 {
+    /* display: none; */
+    font-size: 24px;
+    padding: 0 0 10px 0;
+    font-weight: 600;
 }
 
 /* Game Icon */
@@ -177,11 +426,74 @@ header h1 {
   margin-bottom: 10px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f0f0f0;
+p.user-title {
+    font-size: 16px;
+    color: var(--text-main);
+    margin: 0 23px 0 0;
+    font-weight: 500;
+}
+
+.profile-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0 10px;
+}
+
+.profile .profile-icon img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 9999px;
+}
+
+.badge {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.star.badge {
+  padding: 0 10px 0 20px;
+}
+
+.open.badge {
+  padding: 0 20px 0 10px;
+}
+
+.breaker {
+  height: 20px;
+  margin: 0 5px;
+  width: 1px;
+  background: var(--text-subdued);
+  opacity: 0.5;
+}
+
+/* .star-badge svg {
+    background: var(--sub-text);
+} */
+
+.game.link {
+    height: 36px;
+}
+
+.stared-games, .profile {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* padding: 0 20px; */
+    background: var(--nav-bg);
+    width: fit-content;
+    border-radius: 9999px;
+    margin: 0 15px;
+}
+
+.right-nav-links {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 header {
@@ -192,22 +504,75 @@ header {
 }
 
 button {
-  margin: 5px;
-  padding: 10px;
+  /* margin: 5px; */
+  /* padding: 10px; */
   border: none;
   cursor: pointer;
+  width: auto;
 }
 
-button:hover {
-  background: #555;
+button#browse-btn {
+    width: 36px;
+    height: 32px;
+    margin-left: 8px;
+    background: var(--bg);
+    border: 1px solid var(--dark-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.launch-button, button.edit-button {
+    padding: 8px 10px;
+    border-radius: 9999px;
+    font-size: 15px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: var(--bg);
+    /* position: absolute; */
+    bottom: 20px;
+    right: 20px;
+}
+
+button.edit-button {
+    margin: 0 10px;
+}
+
+button.edit-button:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: red;
+}
+
+button.launch-button::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: var(--bg);
+    margin-right: 5px;
+    display: block;
+    mask-image: url(https://raw.githubusercontent.com/Amiru2007/icons-i-nedd-in-my-project-personal/main/ic_fluent_play_24_filled.svg);
 }
 
 .game-card {
   background: rgb(75, 68, 68);
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
+  /* border-radius: 5px; */
+  /* margin: 10px; */
+  /* padding: 10px; */
+  width: 100%;
+  height: 100% !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
 }
 
 .game-card img {
@@ -228,16 +593,27 @@ button:hover {
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
+  background: var(--menu-bg);
+  padding: 25px 20px;
+  border-radius: 20px;
+  width: 600px;
+  color: var(--text-main);
 }
 
 .close {
   float: right;
   font-size: 20px;
   cursor: pointer;
+  width: 26px;
+  /* background: red; */
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+span#close-modal svg {
+    color: #fff;
 }
 
 .delete-button {
