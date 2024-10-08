@@ -1,5 +1,119 @@
+function renderGameList(games) {
+  const gameListContainer = document.querySelector('.game-list');
+  if (!gameListContainer) {
+    console.error('Game list container not found!');
+    return;
+  }
+
+  gameListContainer.innerHTML = ''; // Clear previous content
+
+  games.forEach(game => {
+    const gameItem = document.createElement('li');
+    gameItem.classList.add('game-item');
+
+    // Cover Art
+    if (game.coverUrl) {
+      const coverImage = document.createElement('img');
+      coverImage.src = game.coverUrl;
+      coverImage.alt = `Cover art for ${game.name}`;
+      coverImage.classList.add('game-cover');
+      gameItem.appendChild(coverImage);
+    }
+
+    const gameListItemText = document.createElement('div');
+    gameListItemText.classList.add('game-list-item-text');
+    
+    
+    // Game Name
+    const gameName = document.createElement('span');
+    gameName.textContent = game.name;
+    gameListItemText.appendChild(gameName);
+    
+    const gameCompany = document.createElement('span');
+    gameCompany.textContent = game.company;
+    gameListItemText.appendChild(gameCompany);
+
+    gameItem.appendChild(gameListItemText);
+
+    const launchButtonContainer = document.createElement('div');
+    launchButtonContainer.classList.add('launch-button-container');
+
+    const launchButtonIcon = document.createElement('span');
+    launchButtonIcon.classList.add('launch-button-icon');
+    const launchButton = document.createElement('button');
+    launchButtonContainer.appendChild(launchButtonIcon);
+
+    launchButton.textContent = game.isRunning ? 'Stop' : 'Launch';
+    launchButton.classList.add('launch-button');
+    
+    // Set aria-label based on button state
+    launchButton.setAttribute('aria-label', game.isRunning ? 'Stop' : 'Launch');
+    
+    launchButton.addEventListener('click', async () => {
+      try {
+        if (launchButton.textContent === 'Launch') {
+          await window.electron.launchGame(game.id); // Launch the game
+          launchButton.textContent = 'Stop'; // Change button text to 'Stop'
+          launchButton.setAttribute('aria-label', 'Stop'); // Update aria-label
+        } else {
+          await window.electron.stopGame(game.id); // Stop the game
+          launchButton.textContent = 'Launch'; // Change button text back to 'Launch'
+          launchButton.setAttribute('aria-label', 'Launch'); // Update aria-label
+        }
+        loadGames(); // Reload game list to reflect state changes
+      } catch (error) {
+        console.error('Error managing game:', error);
+      }
+    });
+
+    gameItem.appendChild(launchButtonContainer);
+    // // Last Opened
+    // const lastOpened = document.createElement('p');
+    // lastOpened.textContent = `Last Opened: ${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
+    // lastOpened.classList.add('game-last-opened');
+    // gameItem.appendChild(lastOpened);
+
+    // // Total Playtime
+    // const playtime = document.createElement('p');
+    // playtime.textContent = `Total Playtime: ${formatPlaytime(game.totalPlaytime)}`;
+    // playtime.classList.add('game-playtime');
+    // gameItem.appendChild(playtime);
+
+    gameListContainer.appendChild(gameItem);
+  });
+}
+
+async function loadAndRenderGames() {
+  try {
+    const games = await window.electron.getGames(); // Fetch games from the backend
+    renderGameList(games);
+  } catch (error) {
+    console.error('Error loading games:', error);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  loadGames();
+  if (window.location.pathname.endsWith('games.html')) {
+    loadGames(); // Should remain as is
+  } else if (window.location.pathname.endsWith('index.html')) {
+    loadAndRenderGames(); // Ensure the right function is called
+  }
+
+  // Event listener for back button
+  const backButton = document.getElementById('back-to-home');
+  if (backButton) {
+      backButton.addEventListener('click', () => {
+          window.location.href = 'index.html';  // Redirect back to the home page
+      });
+  }
+  
+  const galleryButton = document.getElementById('go-to-gallery');
+  if (galleryButton) {
+      galleryButton.addEventListener('click', () => {
+          window.location.href = 'games.html';  // Redirect to the game gallery page
+      });
+  }
+  // loadGames();
 
   const addGameBtn = document.getElementById('add-game-btn');
   const addGameModal = document.getElementById('addGameModal');
@@ -25,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const iconUrl = document.getElementById('icon-url').value;
       const coverUrl = document.getElementById('cover-url').value;
       const backgroundUrl = document.getElementById('background-url').value;
+      const company = document.getElementById('company').value; // Get company field
 
       const newGame = {
         name: gameName,
@@ -32,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         iconUrl,
         coverUrl,
         backgroundUrl,
+        company, // Add company field here
         lastOpened: null,
         totalPlaytime: 0,
         isRunning: 0
@@ -118,60 +234,77 @@ function showEditModal(game) {
   }
 }
 
-
 async function loadGames() {
   try {
     const games = await window.electron.getGames();
+    console.log('Games loaded:', games); // Verify the received data
     const gameContainer = document.getElementById('game-container');
+    const overlayImage = document.getElementById('overlay-img');
 
-    if (!gameContainer) {
-      console.error('Game container element not found!');
+    if (!gameContainer || !overlayImage) {
+      console.error('Game container or overlay image element not found!');
       return;
     }
 
-    gameContainer.innerHTML = '';
+    gameContainer.innerHTML = ''; // Clear existing content
 
-    for (const game of games) {
+    games.forEach(game => {
       const gameCard = document.createElement('div');
       const gameCardCover = document.createElement('div');
       gameCardCover.classList.add('game-card-cover');
       gameCard.appendChild(gameCardCover);
+
       const gameCardOverlay = document.createElement('div');
       gameCardOverlay.classList.add('game-overlay');
       gameCard.appendChild(gameCardOverlay);
       gameCard.classList.add('game-card');
 
+      const gameCardIcon = document.createElement('div');
+      gameCardIcon.classList.add('game-card-icon');
+
       if (game.coverUrl) {
-        // Set the background image for the cover
+        // Set cover background image
         gameCardCover.style.backgroundImage = `url(${game.coverUrl})`;
 
-        // Load the image and extract the colors
-        const img = new Image();
-        img.src = game.coverUrl;
-        img.crossOrigin = 'Anonymous'; // Ensure CORS is set for remote images
-        img.onload = () => {
-          const colorThief = new ColorThief();
-          const palette = colorThief.getPalette(img, 2); // Extract two dominant colors
+        // Extract accent color using Vibrant.js
+        // const img = new Image();
+        // img.src = game.coverUrl;
+        // img.crossOrigin = 'Anonymous'; // Cross-origin for CORS compliant images
+        // img.onload = () => {
+        //   // Vibrant.js to extract vibrant color (accent color)
+        //   Vibrant.from(img).getPalette((err, palette) => {
+        //     if (err) {
+        //       console.error('Error extracting color palette:', err);
+        //       return;
+        //     }
 
-          if (palette && palette.length >= 2) {
-            // Convert the palette RGB values to CSS format
-            // const color1 = `rgb(${palette[0].join(',')})`;
-            const color1 = `rgb(${palette[1].join(',')})`;
-            const color2 = `var(--menu-bg)`;
+        //     // Extract vibrant color or fallback to muted if vibrant isn't available
+        //     const vibrantColor = palette.Vibrant ? palette.Vibrant.getRgb() : palette.Muted.getRgb();
+        //     const color1 = `rgb(${vibrantColor.join(',')})`;
+        //     const color2 = `#111111bf`; // Fallback to a CSS variable
 
-            // Apply the linear gradient as the background of the game card
-            gameCard.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
-          }
-        };
+        //     gameCard.style.background = `linear-gradient(to right, ${color1}, ${color2})`; // Gradient background
+        //   });
+        // };
       }
 
-      // Add cover art if available
-      // if (game.coverUrl) {
-      //   const coverArt = document.createElement('img');
-      //   coverArt.classList.add('cover-art');
-      //   coverArt.src = game.coverUrl;
-      //   gameCardOverlay.appendChild(coverArt);
+      if (game.iconUrl) {
+        gameCardIcon.style.backgroundImage = `url(${game.iconUrl})`;
+      }
+
+      gameCardOverlay.appendChild(gameCardIcon);
+      // Overlay image update on hover
+      // if (game.backgroundUrl) {
+      //   gameCard.addEventListener('mouseenter', () => {
+      //     overlayImage.classList.remove('visible'); // Hide the image
+      //     overlayImage.src = game.backgroundUrl; // Change overlay image
+      //     // Trigger reflow to apply the new image before transitioning
+      //     overlayImage.offsetHeight; 
+      //     overlayImage.classList.add('visible'); // Fade in the new image
+      //   });
       // }
+
+      // Buttons overlay div
       const gameCardButtonsOverlay = document.createElement('div');
       gameCardButtonsOverlay.classList.add('game-card-buttons-overlay');
       gameCardOverlay.appendChild(gameCardButtonsOverlay);
@@ -181,7 +314,12 @@ async function loadGames() {
       gameName.textContent = game.name;
       gameCardOverlay.appendChild(gameName);
 
-      // Launch button
+      // const gameYear = document.createElement('p');
+      // gameYear.classList.add('game-year');
+      // gameYear.textContent = game.year;
+      // gameCardOverlay.appendChild(gameYear);
+
+      // Launch/Stop Button
       const launchButtonIcon = document.createElement('span');
       launchButtonIcon.classList.add('launch-button-icon');
       const launchButton = document.createElement('button');
@@ -189,66 +327,74 @@ async function loadGames() {
 
       launchButton.textContent = game.isRunning ? 'Stop' : 'Launch';
       launchButton.classList.add('launch-button');
+      
+      // Set aria-label based on button state
+      launchButton.setAttribute('aria-label', game.isRunning ? 'Stop' : 'Launch');
+      
       launchButton.addEventListener('click', async () => {
         try {
           if (launchButton.textContent === 'Launch') {
-            await window.electron.launchGame(game.id);
-            launchButton.textContent = 'Stop';
+            await window.electron.launchGame(game.id); // Launch the game
+            launchButton.textContent = 'Stop'; // Change button text to 'Stop'
+            launchButton.setAttribute('aria-label', 'Stop'); // Update aria-label
           } else {
-            await window.electron.stopGame(game.id);
-            launchButton.textContent = 'Launch';
+            await window.electron.stopGame(game.id); // Stop the game
+            launchButton.textContent = 'Launch'; // Change button text back to 'Launch'
+            launchButton.setAttribute('aria-label', 'Launch'); // Update aria-label
           }
-          loadGames(); // Refresh the game list
+          loadGames(); // Reload game list to reflect state changes
         } catch (error) {
           console.error('Error managing game:', error);
         }
       });
 
-      // Add "Edit" button
+      // "Edit" button for each game
       const editButton = document.createElement('button');
-      editButton.textContent = '';
+      editButton.textContent = ''; // Icon can be added with CSS or a font library
       editButton.classList.add('edit-button');
       editButton.addEventListener('click', () => {
-        showEditModal(game);
+        showEditModal(game); // Trigger modal to edit game details
       });
 
-      // append buttons
+      // Append buttons to the overlay
       gameCardButtonsOverlay.appendChild(editButton);
       gameCardButtonsOverlay.appendChild(launchButton);
 
-      // Game playtime and last played information
-      const infoLastPlayedTitle = document.createElement('p');
-      infoLastPlayedTitle.textContent = 'Last Played:';
-      infoLastPlayedTitle.classList.add('info-title');
+      // Last Played Info
+      // const infoLastPlayedTitle = document.createElement('p');
+      // infoLastPlayedTitle.textContent = 'Last Played:';
+      // infoLastPlayedTitle.classList.add('info-title');
 
-      const infoLastPlayed = document.createElement('p');
-      infoLastPlayed.textContent = `${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
-      infoLastPlayed.classList.add('info-block');
+      // const infoLastPlayed = document.createElement('p');
+      // infoLastPlayed.textContent = `${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
+      // infoLastPlayed.classList.add('info-block');
 
-      const infoPlayTimeTitle = document.createElement('p');
-      infoPlayTimeTitle.textContent = 'Total Playtime:';
-      infoPlayTimeTitle.classList.add('info-title');
+      // // Total Playtime Info
+      // const infoPlayTimeTitle = document.createElement('p');
+      // infoPlayTimeTitle.textContent = 'Total Playtime:';
+      // infoPlayTimeTitle.classList.add('info-title');
 
-      const infoPlayTime = document.createElement('p');
-      infoPlayTime.textContent = `${formatPlaytime(game.totalPlaytime)}`;
-      infoPlayTime.classList.add('info-block');
+      // const infoPlayTime = document.createElement('p');
+      // infoPlayTime.textContent = `${formatPlaytime(game.totalPlaytime)}`;
+      // infoPlayTime.classList.add('info-block');
 
-      gameCardOverlay.appendChild(infoLastPlayedTitle);
-      gameCardOverlay.appendChild(infoLastPlayed);
-      gameCardOverlay.appendChild(infoPlayTimeTitle);
-      gameCardOverlay.appendChild(infoPlayTime);
+      // Append playtime and last played details
+      // gameCardOverlay.appendChild(infoLastPlayedTitle);
+      // gameCardOverlay.appendChild(infoLastPlayed);
+      // gameCardOverlay.appendChild(infoPlayTimeTitle);
+      // gameCardOverlay.appendChild(infoPlayTime);
 
+      // Append the card to the game container
       gameContainer.appendChild(gameCard);
-    }
+    });
   } catch (error) {
-    console.error('Error loading games:', error);
+    console.error('Error loading games:', error.message);
   }
 }
+
 
 function formatPlaytime(seconds) {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
-  // const secs = seconds % 60;
   return `${hours}h ${minutes}m`;
 }
-

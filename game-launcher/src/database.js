@@ -10,6 +10,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
     db.run(`CREATE TABLE IF NOT EXISTS games (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
+      company TEXT,
       path TEXT,
       iconUrl TEXT,
       coverUrl TEXT,
@@ -18,6 +19,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
       totalPlaytime INTEGER,
       isRunning INTEGER
     )`);
+  }
+});
+
+db.run(`ALTER TABLE games ADD COLUMN company TEXT`, (err) => {
+  if (err && !err.message.includes('duplicate column name')) {
+    console.error('Error adding company column:', err.message);
   }
 });
 

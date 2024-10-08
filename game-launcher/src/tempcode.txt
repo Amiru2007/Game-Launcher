@@ -22,3 +22,37 @@
       gameCardOverlay.appendChild(infoPlayTime);
 
       gameContainer.appendChild(gameCard);
+
+
+
+
+
+
+Past dribblish data passing error resolve
+
+async function loadGames() {
+  try {
+    const games = await window.electron.getGames();
+    console.log('Games loaded:', games); // Verify the received data
+    const gameContainer = document.getElementById('game-container');
+    const overlayImage = document.getElementById('overlay-img');
+
+    if (!gameContainer || !overlayImage) {
+      console.error('Game container or overlay image element not found!');
+      return;
+    }
+
+    gameContainer.innerHTML = ''; // Clear existing content
+
+    games.forEach(game => {
+      const gameCard = document.createElement('div');
+      // Populate gameCard with game details
+      // ...
+      gameContainer.appendChild(gameCard);
+    });
+  } catch (error) {
+    console.error('Error loading games:', error.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadGames);
