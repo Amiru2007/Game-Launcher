@@ -361,28 +361,28 @@ async function loadGames() {
       gameCardButtonsOverlay.appendChild(launchButton);
 
       // Last Played Info
-      // const infoLastPlayedTitle = document.createElement('p');
-      // infoLastPlayedTitle.textContent = 'Last Played:';
-      // infoLastPlayedTitle.classList.add('info-title');
+      const infoLastPlayedTitle = document.createElement('p');
+      infoLastPlayedTitle.textContent = 'Last Played:';
+      infoLastPlayedTitle.classList.add('info-title');
 
-      // const infoLastPlayed = document.createElement('p');
-      // infoLastPlayed.textContent = `${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
-      // infoLastPlayed.classList.add('info-block');
+      const infoLastPlayed = document.createElement('p');
+      infoLastPlayed.textContent = `${game.lastOpened ? new Date(game.lastOpened).toLocaleString() : 'Never'}`;
+      infoLastPlayed.classList.add('info-block');
 
-      // // Total Playtime Info
-      // const infoPlayTimeTitle = document.createElement('p');
-      // infoPlayTimeTitle.textContent = 'Total Playtime:';
-      // infoPlayTimeTitle.classList.add('info-title');
+      // Total Playtime Info
+      const infoPlayTimeTitle = document.createElement('p');
+      infoPlayTimeTitle.textContent = 'Total Playtime:';
+      infoPlayTimeTitle.classList.add('info-title');
 
-      // const infoPlayTime = document.createElement('p');
-      // infoPlayTime.textContent = `${formatPlaytime(game.totalPlaytime)}`;
-      // infoPlayTime.classList.add('info-block');
+      const infoPlayTime = document.createElement('p');
+      infoPlayTime.textContent = `${formatPlaytime(game.totalPlaytime)}`;
+      infoPlayTime.classList.add('info-block');
 
       // Append playtime and last played details
-      // gameCardOverlay.appendChild(infoLastPlayedTitle);
-      // gameCardOverlay.appendChild(infoLastPlayed);
-      // gameCardOverlay.appendChild(infoPlayTimeTitle);
-      // gameCardOverlay.appendChild(infoPlayTime);
+      gameCardOverlay.appendChild(infoLastPlayedTitle);
+      gameCardOverlay.appendChild(infoLastPlayed);
+      gameCardOverlay.appendChild(infoPlayTimeTitle);
+      gameCardOverlay.appendChild(infoPlayTime);
 
       // Append the card to the game container
       gameContainer.appendChild(gameCard);
@@ -391,7 +391,6 @@ async function loadGames() {
     console.error('Error loading games:', error.message);
   }
 }
-
 
 function formatPlaytime(seconds) {
   const hours = Math.floor(seconds / 3600);
