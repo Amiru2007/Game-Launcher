@@ -9,81 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/node-vibrant@latest/dist/vibrant.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script> -->
   </head>  
-<body>
+<body aria-label="Gallery">
   <img id="overlay-img" src="images/temp-bg.jpg" alt="bg">
   <div class="bg-overlay"></div>
-  <!-- <div class="left-sidebar">
-    <div class="nav-upper-container">
-      <div class="logo">
-        <img src="default-icon.png" alt="">
-      </div>
-      <div class="main-nav-links">
-        <button class="link" id="back-to-home">
-          <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z" fill="#9a9c9d"/></svg>
-          </span>
-        </button>
-        <button class="link" id="go-to-gallery">
-          <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13h3.5Zm10 0A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13h3.5Zm-10-10A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3h3.5Zm10 0A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3h3.5Z" fill="#9a9c9d"/></svg>
-          </span>
-        </button> -->
-        <!-- <a href="#" class="link">
-          <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z" fill="#9a9c9d"/></svg>
-          </span>
-        </a>
-        <a href="#" class="link">
-          <span>
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13h3.5Zm10 0A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13h3.5Zm-10-10A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3h3.5Zm10 0A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3h3.5Z" fill="#9a9c9d"/></svg>
-          </span>
-        </a> -->
-        <!-- <a href="#" class="link">
-          <span>
-            
-          </span>
-        </a> -->
-      <!-- </div>
-    </div>
-    <div class="bottom-nav-link">
-      <a href="#" class="link">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="#9a9c9d"/></svg>
-      </a>
-    </div>
-  </div> -->
   <div class="main-view">
-    <!-- <div class="horizontal-nav">
-      <div class="right-nav-links">
-        <div class="stared-games">
-          <div class="star badge">
-            <?xml version="1.0" encoding="UTF-8"?><svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#9a9c9d" stroke-width="1.5"><path d="M8.58737 8.23597L11.1849 3.00376C11.5183 2.33208 12.4817 2.33208 12.8151 3.00376L15.4126 8.23597L21.2215 9.08017C21.9668 9.18848 22.2638 10.0994 21.7243 10.6219L17.5217 14.6918L18.5135 20.4414C18.6409 21.1798 17.8614 21.7428 17.1945 21.3941L12 18.678L6.80547 21.3941C6.1386 21.7428 5.35909 21.1798 5.48645 20.4414L6.47825 14.6918L2.27575 10.6219C1.73617 10.0994 2.03322 9.18848 2.77852 9.08017L8.58737 8.23597Z" fill="#9a9c9d" stroke="#9a9c9d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </div>
-          <div class="breaker"></div>
-          <div class="game-list">
-            <div class="game link">
-              <img src="https://nfsmods.xyz/uploads/thumbnails/Tonny-45344e2a2ca153a6d289ca890f161ad3.jpg" alt="gaer">
-            </div>
-            <div class="game link">
-              <img src="https://preview.redd.it/w0lmb8i7odo51.png?width=640&crop=smart&auto=webp&s=82a5726a72b8f635114261681e066f0db26d5751" alt="athath">
-            </div>
-            <div class="game link">
-              <img src="https://media.nichegamer.com/wp-content/uploads/2023/11/Call-of-Duty-MW3-Cover-art.png" alt="hshtra">
-            </div>
-          </div>
-          <div class="open badge">
-            <?xml version="1.0" encoding="UTF-8"?><svg width="14px" height="14px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#9a9c9d"><path d="M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005" stroke="#9a9c9d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </div>
-        </div>
-        <div class="profile">
-          <div class="profile-icon">
-            <img src="images/temp-bg.jpg" alt="">
-          </div>
-          <p class="user-title">
-            AmirUpek W
-          </p>
-        </div>
-      </div>
-    </div> -->
     <div class="main-page">
       <div class="sub-header">
         <p>Games</p>
@@ -93,8 +22,6 @@
         
       </div>
     </div>
-  
-    <!-- Modal for Adding a Game -->
     <!-- Edit Game Modal -->
     <div id="editGameModal" class="modal">
       <div class="modal-content">
@@ -121,6 +48,10 @@
             <input type="text" id="edit-icon-url" />
           </div>
           <div class="input-block">
+            <label for="text-logo">Icon URL:</label>
+            <input type="text" id="text-logo" />
+          </div>
+          <div class="input-block">
             <label for="edit-cover-url">Cover URL:</label>
             <input type="text" id="edit-cover-url" />
           </div>
@@ -134,8 +65,6 @@
         </form>
       </div>
     </div>
-
-
     <div id="addGameModal" class="modal">
       <div class="modal-content">
         <span id="close-modal" class="close">
@@ -163,6 +92,10 @@
           <div class="input-block">
             <label for="icon-url">Icon URL:</label>
             <input type="text" id="icon-url">
+          </div>
+          <div class="input-block">
+            <label for="text-logo">Text Logo URL:</label>
+            <input type="text" id="text-logo">
           </div>
           <div class="input-block">
             <label for="cover-url">Cover URL:</label>
