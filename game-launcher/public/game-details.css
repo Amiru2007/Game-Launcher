@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  /* --bg: #111111;
+  --nav-bg: #080a0c;
+  --sub-text: #9a9c9d;
+  --text-subdued: #696969;
+  --text-main: #ffffff;
+  --menu-bg: #171717;
+  --text-alt: #111111;
+  --dark-border: #232323;
+  --text-main-dimmed: #eeeeee; */
+  --text: #ffffff;
+  --rgb-text: 255, 255, 255;
+  --subtext: #909090;
+  --rgb-subtext: 144, 144, 144;
+  --alt-text: #000000;
+  --rgb-alt-text: 0, 0, 0;
+  --main: #151515;
+  --rgb-main: 18, 18, 18;
+  --sidebar: #191919;
+  --rgb-sidebar: 25, 25, 25;
+  --player: #262626;
+  --rgb-player: 38, 38, 38;
+  --player-border: #3c3c3c;
+  --rgb-player-border: 60, 60, 60;
+  --player-bar-shadow: #080808;
+  --rgb-player-bar-shadow: 8, 8, 8;
+  --player-bar-bg: #333333;
+  --rgb-player-bar-bg: 51, 51, 51;
+  --card: #1c1c1c;
+  --rgb-card: 28, 28, 28;
+  --shadow: #ffffff;
+  --rgb-shadow: 255, 255, 255;
+  --selected-row: #373737;
+  --rgb-selected-row: 55, 55, 55;
+  --button: #4cc2ff;
+  --rgb-button: 0, 255, 161;
+  --button-active: #4cc2ff;
+  --rgb-button-active: 0, 255, 161;
+  --button-disabled: #313131;
+  --rgb-button-disabled: 49, 49, 49;
+  --tab-active: #1c1c1c;
+  --rgb-tab-active: 28, 28, 28;
+  --notification: #42a0fe;
+  --rgb-notification: 66, 160, 254;
+  --notification-error: #ff99a4;
+  --rgb-notification-error: 255, 153, 164;
+  --notif-bubble-info: #182b3f;
+  --rgb-notif-bubble-info: 24, 43, 63;
+  --notif-bubble-error: #442726;
+  --rgb-notif-bubble-error: 68, 39, 38;
+  --misc: #909090;
+  --rgb-misc: 144, 144, 144;
+  --not-selected: #bbbbbb;
+  --rgb-not-selected: 187, 187, 187;
+  --accent: #4cc2ff;
+  --rgb-accent: 0, 255, 161;
+  --layer-shadow: #000000;
+  --rgb-layer-shadow: 0, 0, 0;
+  --contour: #3c3c3c;
+  --rgb-contour: 60, 60, 60;
+}
+
+::-webkit-scrollbar {
+  background: #00000000;
+    width: 0px;
+    margin-right: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+    border-radius: 9999px;
+    width: 0px;
+    margin-right: 0px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+}
+
+body {
+    opacity: 0; /* Body starts fully visible */
+    /* transition: opacity 0.2s ease-in; Transition applies to both fade-in and fade-out */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI",
+    "Microsoft Ya Hei", sans-serif !important;
+}
+
+span.svg-bg {
+    width: 40px;
+    height: 40px;
+    background: var(--main);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#game-controls button:hover span.svg-bg {
+    transform: scale(1.1);
+    /* width: 44px; */
+    /* height: 44px; */
+}
+
+span.svg-container {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+span.button-inner-container svg {
+    width: 18px;
+    height: 18px;
+    /* padding: 10px; */
+    /* background: var(--main); */
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 12px; */
+    /* transition: all 0.3s ease; */
+    /* position: absolute; */
+}
+
+body {
+    background: var(--main);
+}
+
+img#game-logo {
+    width: 300px;
+    margin: 30px 0;
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url(https://cdna.artstation.com/p/assets/images/images/010/055/674/4k/khyzyl-saleem-wheelmanescape-cinematickeyframe.jpg?1522320491);
+    display: block;
+    z-index: -3;
+}
+
+button#back-to-gallery {
+    /* padding: 10px; */
+    border-radius: 12px;
+    border: 0;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--button-disabled);
+    color: var(--text);
+}
+
+#game-controls button {
+    padding: 5px;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 26px;
+    border: 0;
+    min-width: 130px;
+    cursor: pointer;
+}
+
+span.button-inner-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: calc(100% - 0px);
+    height: 50px;
+    color: var(--text);
+    gap: 10px;
+}
+
+.game-card-buttons-overlay {
+    display: none;
+}
+
+img#overlay-img {
+    display: none;
+}
+
+/* body {
+    background-image: url(https://cdna.artstation.com/p/assets/images/images/010/055/674/4k/khyzyl-saleem-wheelmanescape-cinematickeyframe.jpg?1522320491) !important;
+    background-repeat: no-repeat !important;
+} */
+
+div#game-details {
+    background: linear-gradient(275deg, #00000000, var(--main));
+    color: var(
+    --text);
+    width:
+    -webkit-fill-available;
+    padding: 200px 150px;
+    height: -webkit-fill-available;
+    min-height: 600px;
+}
+
+span#playTime {
+    font-size: 24px;
+    /* font-family: 'Lato', sans-serif !important; */
+    font-family: "Lato", serif !important;
+}
+
+div#game-controls {
+    height: fit-content;
+    margin-bottom: 20px;
+}
+
+.bottom-details::before {
+    content: '';
+    width: 100%;
+    min-height: 400px;
+    background: linear-gradient(0deg, var(--main), transparent);
+    position: absolute;
+    /* top: 400px; */
+    bottom: 0;
+    z-index: -1;
+}
+
+.bottom-details {
+    width: 100%;
+    height: 500px;
+    background: var(--main);
+}

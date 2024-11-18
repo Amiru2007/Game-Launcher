@@ -13,18 +13,20 @@ const db = require('./database'); // Ensure this path is correct
 // Function to create the main window
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 800,
+    width: 1366,
+    height: 768,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'), // Ensure preload.js exists in src
-      webSecurity: false
-    }
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
+    },
   });
 
-  // Load the HTML file
-  mainWindow.loadFile(path.join(__dirname, '..', 'public', 'index.html')); // Adjust path to HTML
+  mainWindow.loadFile(path.join(__dirname, '..', 'public', 'index.html'));
+
+  // Open DevTools in production
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
 }
 
 // Event when app is ready
@@ -61,17 +63,64 @@ ipcMain.handle('get-games', async () => {
   });
 });
 
+// Handle the get-recently-added-games request from the renderer
+ipcMain.handle('get-recently-added-games', async () => {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM games', [], (err, rows) => {
+      if (err) {
+        console.error('Error fetching games:', err.message);
+        reject(err);
+      } else {
+        console.log('Fetched games:', rows); // Verify data here
+        resolve(rows);
+      }
+    });
+  });
+});
+
+ipcMain.handle('get-top-playtime-games', async () => {
+  return new Promise((resolve, reject) => {
+    db.all(`
+      SELECT name, company, backgroundUrl, totalPlaytime, textLogo
+      FROM games
+      ORDER BY totalPlaytime DESC
+      LIMIT 3
+    `, (err, rows) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+});
+
+ipcMain.handle('get-total-playtime', async () => {
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT SUM(totalPlaytime) as totalPlaytime FROM games`, (err, row) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve(row.totalPlaytime || 0);
+      }
+    });
+  });
+});
+
 // Add a new game to the database
 ipcMain.handle('add-game', async (event, game) => {
   return new Promise((resolve, reject) => {
-    const { name, company, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning } = game;
-    db.run('INSERT INTO games (name, company, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-      [name, company, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning],
+    const { name, company, path, iconUrl, textLogo, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning } = game;
+
+    // Insert the new game into the database, omitting the 'id' column as it's auto-incremented
+    db.run('INSERT INTO games (name, company, path, iconUrl, textLogo, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+      [name, company, path, iconUrl, textLogo, coverUrl, backgroundUrl, lastOpened, totalPlaytime, isRunning],
       function (err) {
         if (err) {
-          reject(err);
+          reject(err);  // Reject the promise if there was an error
+        } else {
+          resolve(this.lastID);  // Resolve the promise with the ID of the new game
         }
-        resolve(this.lastID);
       });
   });
 });
@@ -79,7 +128,7 @@ ipcMain.handle('add-game', async (event, game) => {
 // Update an existing game's information
 ipcMain.handle('update-game', async (event, game) => {
   return new Promise((resolve, reject) => {
-    const { id, name, company, path, iconUrl, coverUrl, backgroundUrl } = game;
+    const { id, name, company, path, iconUrl, textLogo, coverUrl, backgroundUrl } = game;
     db.get('SELECT * FROM games WHERE id = ?', [id], (err, existingGame) => {
       if (err) {
         return reject(err);
@@ -93,8 +142,8 @@ ipcMain.handle('update-game', async (event, game) => {
       const totalPlaytime = game.totalPlaytime || existingGame.totalPlaytime;
 
       db.run(
-        'UPDATE games SET name = ?, company = ?, path = ?, iconUrl = ?, coverUrl = ?, backgroundUrl = ?, lastOpened = ?, totalPlaytime = ? WHERE id = ?',
-        [name, company, path, iconUrl, coverUrl, backgroundUrl, lastOpened, totalPlaytime, id],
+        'UPDATE games SET name = ?, company = ?, path = ?, iconUrl = ?, textLogo = ?, coverUrl = ?, backgroundUrl = ?, lastOpened = ?, totalPlaytime = ? WHERE id = ?',
+        [name, company, path, iconUrl, textLogo, coverUrl, backgroundUrl, lastOpened, totalPlaytime, id],
         function (err) {
           if (err) {
             return reject(err);
@@ -164,6 +213,23 @@ ipcMain.handle('stop-game', async (event, gameId) => {
         }
         resolve();
       });
+    });
+  });
+});
+
+// Handle request to get game details by ID
+ipcMain.handle('get-game-by-id', async (event, gameId) => {
+  return new Promise((resolve, reject) => {
+    db.get('SELECT * FROM games WHERE id = ?', [gameId], (err, game) => {
+      if (err) {
+        console.error('Error fetching game details:', err.message);
+        return reject(err);
+      }
+      if (!game) {
+        console.error(`Game with id ${gameId} not found.`);
+        return reject(new Error('Game not found'));
+      }
+      resolve(game);
     });
   });
 });
