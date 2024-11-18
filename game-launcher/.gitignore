@@ -14,5 +14,3 @@ userData/
 *.log
 *.tmp
 .DS_Store
-
-out/
